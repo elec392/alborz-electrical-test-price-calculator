@@ -1,0 +1,746 @@
+
+Conversation with Gemini
+جمنای فایل html ای رو که برات فرستادم ظاهرش رو جدید تر کن
+
+کد HTML شما بازطراحی شد. در نسخه جدید، از فونت استاندارد وب فارسی (Vazirmatn)، طراحی شیشه‌ای modern (Glassmorphic) پیشرفته، آیکون‌های مدرن، افکت‌های انیمیشنی ورودی و هاور، و کارت نمایشی جذاب برای نتیجه محاسبه استفاده شده است.
+
+کد کامل و مدرن‌شده:
+
+HTML
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محاسبه‌گر قیمت تست و تحویل تاسیسات الکتریکی</title>
+  <!-- بارگذاری فونت مدرن وزیرمتن و آیکون‌های Lucide -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --accent: #818cf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --input-bg: rgba(15, 23, 42, 0.6);
+      --input-border: rgba(255, 255, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+      color: var(--text-main);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* جلوه‌های نورپردازی پس‌زمینه */
+    body::before, body::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: 0;
+      opacity: 0.4;
+    }
+    body::before {
+      background: #0284c7;
+      top: 10%;
+      right: 15%;
+    }
+    body::after {
+      background: #6366f1;
+      bottom: 10%;
+      left: 15%;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 36px 30px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                  0 0 0 1px var(--card-border);
+      transition: transform 0.3s ease;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 0 auto 12px auto;
+    }
+
+    .header-container {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    label i {
+      width: 16px;
+      height: 16px;
+      color: var(--primary);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      background: var(--input-bg);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.4);
+      transition: all 0.25s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px -5px rgba(56, 189, 248, 0.5);
+      filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .result-box {
+      margin-top: 26px;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, rgba(129, 140, 248, 0.05) 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      text-align: center;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-box.show {
+      display: block;
+      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .result-value-container {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .result-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+
+    .currency {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .gamma-info {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .formula {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.7;
+      direction: ltr;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-container">
+      <div class="header-badge">
+        <i data-lucide="zap"></i>
+        <span>انجمن مهندسان برق استان البرز</span>
+      </div>
+      <h1>محاسبه‌گر قیمت تست و تحویل تاسیسات الکتریکی</h1>
+    </div>
+
+    <div class="form-group">
+      <label for="A">
+        <i data-lucide="coins"></i>
+        حق‌الزحمه نظارت برق (متوسط ۴ گروه)
+      </label>
+      <div class="input-wrapper">
+        <input type="number" id="A" value="74000" step="any">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="N">
+        <i data-lucide="building"></i>
+        تعداد واحد
+      </label>
+      <div class="input-wrapper">
+        <input type="number" id="N" value="10" min="1" step="1">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="C">
+        <i data-lucide="ruler"></i>
+        متراژ اجرا شده بنا (مترمربع)
+      </label>
+      <div class="input-wrapper">
+        <input type="number" id="C" value="1100" step="any">
+      </div>
+    </div>
+
+    <button onclick="calculate()">
+      <i data-lucide="calculator"></i>
+      محاسبه قیمت پیشنهادی
+    </button>
+
+    <div class="result-box" id="resultBox">
+      <div class="result-label">مبلغ پیشنهادی محاسبه شده</div>
+      <div class="result-value-container">
+        <span class="result-value" id="resultValue">—</span>
+        <span class="currency">تومان</span>
+      </div>
+      <div class="gamma-info" id="gammaInfo"></div>
+    </div>
+
+    <div class="formula">
+      γ(n) = 0.85 + 0.15 × 2/(n+1)<br>
+      P = (A/32 + A/800 × (C/n)<sup>0.6</sup>) × (n<sup>γ</sup> + 1)
+    </div>
+  </div>
+
+  <script>
+    // فعال‌سازی آیکون‌های Lucide
+    lucide.createIcons();
+
+    function calculate() {
+      const A = parseFloat(document.getElementById('A').value);
+      const n = parseFloat(document.getElementById('N').value);
+      const C = parseFloat(document.getElementById('C').value);
+
+      if (isNaN(A) || isNaN(n) || isNaN(C) || n <= 0) {
+        alert('لطفاً مقادیر معتبر وارد کنید (تعداد واحد باید بزرگتر از صفر باشد)');
+        return;
+      }
+
+      // γ(n)
+      const gamma = 0.85 + 0.15 * 2 / (n + 1);
+
+      // محاسبه داخل پرانتز
+      const term1 = A / 32;
+      const cn = C / n;
+      const term2 = (A / 800) * Math.pow(cn, 0.6);
+      const inside = term1 + term2;
+
+      // ضریب مقیاس
+      const mult = Math.pow(n, gamma) + 1;
+
+      // نتیجه نهایی
+      const P = inside * mult * 1000;
+
+      // نمایش نتیجه
+      document.getElementById('resultValue').textContent = Math.round(P).toLocaleString('fa-IR');
+      document.getElementById('gammaInfo').textContent = `γ(n) = ${gamma.toFixed(4)}`;
+      document.getElementById('resultBox').classList.add('show');
+    }
+
+    // محاسبه اولیه هنگام بارگذاری
+    calculate();
+  </script>
+</body>
+</html>
+تغییرات اصلی صورت‌گرفته:
+طراحی مدرن (Glassmorphism): افکت شیشه‌ای روی کارت با حالت تارشدگی (Blur) و سایه‌های لایه‌ای شیک.
+
+فونت استاندارد وب فارسی: اضافه شدن فونت استاندارد و زیبای Vazirmatn از گوگل‌فونتس.
+
+آیکون‌های مدرن: بهره‌گیری از آیکون‌های مینیمال برای تمامی ورودی‌ها و عناوین جهت خوانایی و جذابیت بیشتر.
+
+تایپوگرافی و گرادیان: اعمال گرادیان بر روی دکمه‌ها و عدد خروجی نهایی برای تمرکز بیشتر کاربر روی نتیجه.
+
+انیمیشن‌ها: افکت‌های نرم ورودی و هاور روی دکمه‌ها و فرم.
+
+فایل html رو بهم برای دانلود بده
+
+فایل HTML جدید و بازطراحی‌شده شما آماده دانلود است:
+
+HTML icon
+price_calculator_modern
+ HTML 
+Gemini is AI and can make mistakes.
+
+
+
+
+
+Analyzing
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محاسبه‌گر قیمت تست و تحویل تاسیسات الکتریکی</title>
+  <!-- بارگذاری فونت مدرن وزیرمتن و آیکون‌های Lucide -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --accent: #818cf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --input-bg: rgba(15, 23, 42, 0.6);
+      --input-border: rgba(255, 255, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+      color: var(--text-main);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* جلوه‌های نورپردازی پس‌زمینه */
+    body::before, body::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: 0;
+      opacity: 0.4;
+    }
+    body::before {
+      background: #0284c7;
+      top: 10%;
+      right: 15%;
+    }
+    body::after {
+      background: #6366f1;
+      bottom: 10%;
+      left: 15%;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 36px 30px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                  0 0 0 1px var(--card-border);
+      transition: transform 0.3s ease;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 0 auto 12px auto;
+    }
+
+    .header-container {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    label i {
+      width: 16px;
+      height: 16px;
+      color: var(--primary);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      background: var(--input-bg);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.4);
+      transition: all 0.25s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px -5px rgba(56, 189, 248, 0.5);
+      filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .result-box {
+      margin-top: 26px;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, rgba(129, 140, 248, 0.05) 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      text-align: center;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-box.show {
+      display: block;
+      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .result-value-container {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .result-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+
+    .currency {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .gamma-info {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .formula {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.7;
+      direction: ltr;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-container">
+      <div class="header-badge">
+        <i data-lucide="zap"></i>
+        <span>انجمن مهندسان برق استان البرز</span>
+      </div>
+      <h1>محاسبه‌گر قیمت تست و تحویل تاسیسات الکتریکی</h1>
+    </div>
+
+    <div class="form-group">
+      <label for="A">
+        <i data-lucide="coins"></i>
+        حق‌الزحمه نظارت برق (متوسط ۴ گروه)
+      </label>
+      <div class="input-wrapper">
+        <input type="number" id="A" value="74000" step="any">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="N">
+        <i data-lucide="building"></i>
+        تعداد واحد
+      </label>
+      <div class="input-wrapper">
+        <input type="number" id="N" value="10" min="1" step="1">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="C">
+        <i data-lucide="ruler"></i>
+        متراژ اجرا شده بنا (مترمربع)
+      </label>
+      <div class="input-wrapper">
+        <input type="number" id="C" value="1100" step="any">
+      </div>
+    </div>
+
+    <button onclick="calculate()">
+      <i data-lucide="calculator"></i>
+      محاسبه قیمت پیشنهادی
+    </button>
+
+    <div class="result-box" id="resultBox">
+      <div class="result-label">مبلغ پیشنهادی محاسبه شده</div>
+      <div class="result-value-container">
+        <span class="result-value" id="resultValue">—</span>
+        <span class="currency">تومان</span>
+      </div>
+      <div class="gamma-info" id="gammaInfo"></div>
+    </div>
+
+    <div class="formula">
+      γ(n) = 0.85 + 0.15 × 2/(n+1)<br>
+      P = (A/32 + A/800 × (C/n)<sup>0.6</sup>) × (n<sup>γ</sup> + 1)
+    </div>
+  </div>
+
+  <script>
+    // فعال‌سازی آیکون‌های Lucide
+    lucide.createIcons();
+
+    function calculate() {
+      const A = parseFloat(document.getElementById('A').value);
+      const n = parseFloat(document.getElementById('N').value);
+      const C = parseFloat(document.getElementById('C').value);
+
+      if (isNaN(A) || isNaN(n) || isNaN(C) || n <= 0) {
+        alert('لطفاً مقادیر معتبر وارد کنید (تعداد واحد باید بزرگتر از صفر باشد)');
+        return;
+      }
+
+      // γ(n)
+      const gamma = 0.85 + 0.15 * 2 / (n + 1);
+
+      // محاسبه داخل پرانتز
+      const term1 = A / 32;
+      const cn = C / n;
+      const term2 = (A / 800) * Math.pow(cn, 0.6);
+      const inside = term1 + term2;
+
+      // ضریب مقیاس
+      const mult = Math.pow(n, gamma) + 1;
+
+      // نتیجه نهایی
+      const P = inside * mult * 1000;
+
+      // نمایش نتیجه
+      document.getElementById('resultValue').textContent = Math.round(P).toLocaleString('fa-IR');
+      document.getElementById('gammaInfo').textContent = `γ(n) = ${gamma.toFixed(4)}`;
+      document.getElementById('resultBox').classList.add('show');
+    }
+
+    // محاسبه اولیه هنگام بارگذاری
+    calculate();
+  </script>
+</body>
+</html>
+price_ ... n.html
+General Info
+TypeHTML
+Displaying price_calculator_modern.html.
